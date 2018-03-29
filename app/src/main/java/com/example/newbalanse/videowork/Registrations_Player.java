@@ -49,7 +49,7 @@ public class Registrations_Player extends AppCompatActivity {
                         _name.getText().toString(),
                         _LastName.getText().toString()
                 );
-
+                SqlData.SaveInformations(getBaseContext().openOrCreateDatabase("videoApp.db",MODE_PRIVATE,null));
 
                 startActivity(RegistrationPlayerIntent);
             }

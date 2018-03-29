@@ -1,5 +1,7 @@
 package com.example.newbalanse.videowork;
 
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * Created by NewBalanse on 29.03.2018.
  */
@@ -26,6 +28,38 @@ public class SqlHelper {
         Name = null;
         LastName = null;
     }
+
+    public void SaveInformations(SQLiteDatabase database) {
+        try {
+            SQLiteDatabase db = database;
+            db.execSQL("CREATE TABLE IF NOT EXISTS user (" +
+                    "role TEXT," +
+                    "login TEXT," +
+                    "mail TEXT," +
+                    "nameUser TEXT," +
+                    "lastNameUser TEXT" +
+                    ")");
+            InsertInfo(db);
+            db.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void InsertInfo(SQLiteDatabase db) {
+        try {
+            db.execSQL("INSERT INTO user (" +
+                    "'" + RoleUser + "'," +
+                    "'" + Login + "'," +
+                    "'" + Mail + "'," +
+                    "'" + Name + "'," +
+                    "'" + LastName + "');");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public String getRoleUser() {
         return RoleUser;

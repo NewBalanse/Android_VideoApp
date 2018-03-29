@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">VideoWork</string>
+
+    <!--Main Activity-->
+    <string name="button_watcher">
+        watcher
+    </string>
+    <string name="button_player">
+        player
+    </string>
+    <string name="Welcome_text">
+        Greet you in the game. Choose what your path is, are you a player, or a spectator?
+    </string>
+
+    <!--Other component-->
+    <string name="button_save">Save</string>
+    <string name="txt_Login">Login</string>
+
+    <!--Player registration activity-->
+    <string name="txt_mail">Set you mail</string>
+    <string name="txt_info_name">Your name:</string>
+    <string name="txt_info_lastName">You last name</string>
+
+</resources>

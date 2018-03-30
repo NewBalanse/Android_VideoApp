@@ -70,13 +70,17 @@ public class LoadDataActivity extends AppCompatActivity {
         progressBar.setVisibility(ProgressBar.VISIBLE);
 
         SqlData = new SqlHelper();
+        try {
+            //Create database if database not exist
+            database = getBaseContext().openOrCreateDatabase(
+                    "videoApp.db",
+                    MODE_PRIVATE,
+                    null);
 
-        //Create database if database not exist
-        database = getBaseContext().openOrCreateDatabase(
-                "videoApp.db",
-                MODE_PRIVATE,
-                null);
-
+        } catch (Exception e) {
+            toast = Toast.makeText(getApplicationContext(), "db connect exception", Toast.LENGTH_SHORT);
+            toast.show();
+        }
         toast = Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT);
         toast.show();
         //init thread and start work thread's
@@ -94,23 +98,32 @@ public class LoadDataActivity extends AppCompatActivity {
     private void SetHeadIntent() {
         try {
             //select information user
-            db_Cursor = database.rawQuery("select * from user", null);
+            db_Cursor = database.rawQuery("select * from user;", null);
 
             toast = Toast.makeText(getApplicationContext(), String.valueOf(db_Cursor.getCount()), Toast.LENGTH_SHORT);
             toast.show();
 
             if (db_Cursor.getCount() > 0) {
+                HeadIntent = new Intent(getApplicationContext(), MainActivity.class);
 
                 db_Cursor.moveToFirst();
                 //set sqlData info for user
                 SqlData.setRoleUser(db_Cursor.getString(db_Cursor.getColumnIndex("role")));
+
                 SqlData.setLogin(db_Cursor.getString(db_Cursor.getColumnIndex("login")));
+
                 SqlData.setMail(db_Cursor.getString(db_Cursor.getColumnIndex("mail")));
-                SqlData.setName(db_Cursor.getString(db_Cursor.getColumnIndex("nameUser")));
-                SqlData.setLastName(db_Cursor.getString(db_Cursor.getColumnIndex("lastNameUser")));
+
+                SqlData.setName(db_Cursor.getString(db_Cursor.getColumnIndex("name_user")));
+                toast = Toast.makeText(getApplicationContext(),db_Cursor.getString(db_Cursor.getInt(3)),Toast.LENGTH_SHORT);
+                toast.show();
+
+                SqlData.setLastName(db_Cursor.getString(db_Cursor.getColumnIndex("last_name_user")));
+                toast = Toast.makeText(getApplicationContext(),db_Cursor.getString(db_Cursor.getColumnIndex("last_name_user")),Toast.LENGTH_SHORT);
+                toast.show();
 
                 //init intent and set the transmitted information
-                HeadIntent = new Intent(getApplicationContext(), MainActivity.class);
+
                 HeadIntent.putExtra("UserData", SqlData);
             } else {
                 //just init intent
@@ -118,7 +131,7 @@ public class LoadDataActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            toast = Toast.makeText(getApplicationContext(), "Exceptions SetHead Data", Toast.LENGTH_SHORT);
         } finally {
             database.close();
         }

@@ -1,13 +1,17 @@
 package com.example.newbalanse.videowork;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegistrationsPlayerActivity extends AppCompatActivity {
+
+    SQLiteDatabase database;
 
     Intent RegistrationPlayerIntent;
     Button btn_save;
@@ -56,12 +60,26 @@ public class RegistrationsPlayerActivity extends AppCompatActivity {
                         SqlData = new SqlHelper();
                     }
 
-                    SqlData.SaveInformations(getBaseContext().openOrCreateDatabase("videoApp.db", MODE_PRIVATE, null));
-                    RegistrationPlayerIntent.putExtra("UserData",SqlData);
-                    
+                    database = getBaseContext().openOrCreateDatabase("videoApp.db", MODE_PRIVATE, null);
+
+                    database.execSQL("CREATE TABLE IF NOT EXISTS user (" +
+                            "role TEXT," +
+                            "login TEXT," +
+                            "mail TEXT," +
+                            "name_user TEXT," +
+                            "last_name_user TEXT" +
+                            ")");
+
+                    database.execSQL("INSERT INTO user VALUES ('" + SqlData.getRoleUser() + "','" + SqlData.getLogin() + "','" + SqlData.getMail() + "','" + SqlData.getName() + "','" + SqlData.getLastName() + "');");
+
+                    RegistrationPlayerIntent.putExtra("UserData", SqlData);
+
                     startActivity(RegistrationPlayerIntent);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                } finally {
+                    database.close();
                 }
 
             }

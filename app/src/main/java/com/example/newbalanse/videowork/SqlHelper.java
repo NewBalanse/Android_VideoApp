@@ -32,66 +32,6 @@ public class SqlHelper implements Serializable {
         LastName = "";
     }
 
-    public void SaveInformations(SQLiteDatabase database) {
-        try {
-
-            //Create table if table null;
-            CreateTableUser(database);
-            //insert information's at this table
-            InsertInfo(database);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            //close connections
-            database.close();
-
-        }
-    }
-
-    public void CreateTableUser(SQLiteDatabase db) {
-        try {
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS user (" +
-                    "role TEXT," +
-                    "login TEXT," +
-                    "mail TEXT," +
-                    "nameUser TEXT," +
-                    "lastNameUser TEXT" +
-                    ")");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-    }
-
-    private void InsertInfo(SQLiteDatabase db) {
-        try {
-            db.execSQL("INSERT INTO user (" +
-                    "'" + RoleUser + "'," +
-                    "'" + Login + "'," +
-                    "'" + Mail + "'," +
-                    "'" + Name + "'," +
-                    "'" + LastName + "');");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-    }
-
-    public void PrintAllInfo(SQLiteDatabase db) {
-        try {
-            db.execSQL("SELECT * FROM user");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-    }
-
     public String getRoleUser() {
         return RoleUser;
     }

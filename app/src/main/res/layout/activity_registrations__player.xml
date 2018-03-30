@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.newbalanse.videowork.Registrations_Player">
+    tools:context="com.example.newbalanse.videowork.RegistrationsPlayerActivity">
 
     <EditText
         android:id="@+id/edit_name"
@@ -42,7 +42,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/txt_mail"
+        app:layout_constraintBottom_toTopOf="@+id/txt_mailMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -55,12 +55,12 @@
         android:layout_marginStart="85dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/txt_name"
+        app:layout_constraintBottom_toTopOf="@+id/txt_nameMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/txt_mail"
+        android:id="@+id/txt_mailMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -98,7 +98,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/txt_name"
+        android:id="@+id/txt_nameMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"

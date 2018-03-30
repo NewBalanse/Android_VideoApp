@@ -35,7 +35,7 @@ public class CreateRoleActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                MainIntent = new Intent(getApplicationContext(), Registrations_Player.class);//поменять на активити регистрации зрителя
+                MainIntent = new Intent(getApplicationContext(), RegistrationsPlayerActivity.class);//поменять на активити регистрации зрителя
                 SqlData.setRoleUser("Watcher");
                 MainIntent.putExtra("UserData", SqlData);
 
@@ -46,7 +46,7 @@ public class CreateRoleActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                MainIntent = new Intent(getApplicationContext(), Registrations_Player.class);//поменять на активити регистрации игрока
+                MainIntent = new Intent(getApplicationContext(), RegistrationsPlayerActivity.class);//поменять на активити регистрации игрока
                 SqlData.setRoleUser("Player");
                 MainIntent.putExtra("UserData", SqlData);
 

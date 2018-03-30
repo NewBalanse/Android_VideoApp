@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Registrations_Player extends AppCompatActivity {
+public class RegistrationsPlayerActivity extends AppCompatActivity {
 
     Intent RegistrationPlayerIntent;
     Button btn_save;
@@ -57,7 +57,8 @@ public class Registrations_Player extends AppCompatActivity {
                     }
 
                     SqlData.SaveInformations(getBaseContext().openOrCreateDatabase("videoApp.db", MODE_PRIVATE, null));
-
+                    RegistrationPlayerIntent.putExtra("UserData",SqlData);
+                    
                     startActivity(RegistrationPlayerIntent);
                 } catch (Exception e) {
                     e.printStackTrace();

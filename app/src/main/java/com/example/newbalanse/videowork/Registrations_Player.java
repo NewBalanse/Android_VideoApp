@@ -17,8 +17,6 @@ public class Registrations_Player extends AppCompatActivity {
     EditText _name;
     EditText _LastName;
 
-    String RoleUser;
-
     SqlHelper SqlData;
 
 
@@ -26,10 +24,16 @@ public class Registrations_Player extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrations__player);
-        //set intent role user
-        if ((getIntent().getSerializableExtra("RoleUser")) != null)
-            RoleUser = ((String) getIntent().getSerializableExtra("RoleUser"));
 
+        //set intent role user
+        try {
+            if ((getIntent().getSerializableExtra("UserData")) != null)
+                SqlData = ((SqlHelper) getIntent().getSerializableExtra("UserData"));
+            else
+                SqlData = new SqlHelper();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         btn_save = findViewById(R.id.button_save);
         //edit list set
         _login = findViewById(R.id.edit_login);
@@ -40,18 +44,25 @@ public class Registrations_Player extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegistrationPlayerIntent = new Intent(getApplicationContext(),MainActivity.class);
+                try {
+                    RegistrationPlayerIntent = new Intent(getApplicationContext(), MainActivity.class);
 
-                SqlData = new SqlHelper(
-                        RoleUser,
-                        _login.getText().toString(),
-                        _mail.getText().toString(),
-                        _name.getText().toString(),
-                        _LastName.getText().toString()
-                );
-                SqlData.SaveInformations(getBaseContext().openOrCreateDatabase("videoApp.db",MODE_PRIVATE,null));
+                    if (SqlData != null) {
+                        SqlData.setLogin(_login.getText().toString());
+                        SqlData.setMail(_mail.getText().toString());
+                        SqlData.setName(_name.getText().toString());
+                        SqlData.setLastName(_LastName.getText().toString());
+                    } else {
+                        SqlData = new SqlHelper();
+                    }
 
-                startActivity(RegistrationPlayerIntent);
+                    SqlData.SaveInformations(getBaseContext().openOrCreateDatabase("videoApp.db", MODE_PRIVATE, null));
+
+                    startActivity(RegistrationPlayerIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }

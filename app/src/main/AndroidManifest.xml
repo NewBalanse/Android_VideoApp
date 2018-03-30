@@ -11,8 +11,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".CreateRoleActivity" />
         <activity android:name=".Registrations_Player" />
-        <activity android:name=".Registrations_Watcher" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+
+        <!--Окно которое будет загружаться прежде всего-->
+        <activity android:name=".LoadData" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

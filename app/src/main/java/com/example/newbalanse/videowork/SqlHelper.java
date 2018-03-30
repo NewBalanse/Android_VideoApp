@@ -2,11 +2,14 @@ package com.example.newbalanse.videowork;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
+
 /**
  * Created by NewBalanse on 29.03.2018.
  */
 
-public class SqlHelper {
+public class SqlHelper implements Serializable {
+
     private String RoleUser;
     private String Login;
     private String Mail;
@@ -22,16 +25,33 @@ public class SqlHelper {
     }
 
     public SqlHelper() {
-        RoleUser = null;
-        Login = null;
-        Mail = null;
-        Name = null;
-        LastName = null;
+        RoleUser = "";
+        Login = "";
+        Mail = "";
+        Name = "";
+        LastName = "";
     }
 
     public void SaveInformations(SQLiteDatabase database) {
         try {
-            SQLiteDatabase db = database;
+
+            //Create table if table null;
+            CreateTableUser(database);
+            //insert information's at this table
+            InsertInfo(database);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            //close connections
+            database.close();
+
+        }
+    }
+
+    public void CreateTableUser(SQLiteDatabase db) {
+        try {
+
             db.execSQL("CREATE TABLE IF NOT EXISTS user (" +
                     "role TEXT," +
                     "login TEXT," +
@@ -39,11 +59,11 @@ public class SqlHelper {
                     "nameUser TEXT," +
                     "lastNameUser TEXT" +
                     ")");
-            InsertInfo(db);
-            db.close();
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            db.close();
         }
     }
 
@@ -57,9 +77,20 @@ public class SqlHelper {
                     "'" + LastName + "');");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            db.close();
         }
     }
 
+    public void PrintAllInfo(SQLiteDatabase db) {
+        try {
+            db.execSQL("SELECT * FROM user");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
+    }
 
     public String getRoleUser() {
         return RoleUser;
